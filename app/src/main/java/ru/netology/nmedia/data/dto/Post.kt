@@ -8,5 +8,5 @@ data class Post(
     val likes:Long,
     val shares:Long,
     val views:Long,
-    val likedByMe: Boolean = false
+    val likedByMe: Boolean
 )
