@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">NMedia</string>
     <string name="NMedia">NMedia!</string>
+    <string name="remove">Remove</string>
+    <string name="contentEditText">Edit text</string>
+    <string name="edit">Edit</string>
+    <string name="message">Message</string>
+    <string name="edit_message">Edit message</string>
 </resources>
