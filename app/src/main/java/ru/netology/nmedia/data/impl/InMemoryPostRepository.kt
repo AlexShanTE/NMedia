@@ -18,7 +18,7 @@ class InMemoryPostRepository : PostRepository {
             Post(
                 id = index + 1L,
                 author = faker.name.name(),
-                content = TextGenerator.generateRandomText(20),
+                content = TextGenerator.generateRandomText(250),
                 published = "28.04.2022",
                 likes = Random.nextLong(0, 1200),
                 shares = Random.nextLong(0, 1000),
@@ -73,6 +73,6 @@ class InMemoryPostRepository : PostRepository {
     }
 
     companion object {
-        const val GENERATED_POST_AMOUNT = 5
+        const val GENERATED_POST_AMOUNT = 10
     }
 }
