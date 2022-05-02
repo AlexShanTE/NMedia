@@ -2,7 +2,7 @@ package ru.netology.nmedia.data.impl
 
 import androidx.lifecycle.MutableLiveData
 import io.github.serpro69.kfaker.Faker
-import ru.netology.nmedia.TextGenerator
+import ru.netology.nmedia.util.TextGenerator
 import ru.netology.nmedia.data.PostRepository
 import ru.netology.nmedia.data.dto.Post
 import kotlin.random.Random
@@ -57,22 +57,20 @@ class InMemoryPostRepository : PostRepository {
         }
     }
 
-    override fun save(post: Post) {
-        if (post.id == PostRepository.NEW_POST_ID) insert(post) else update(post)
+    override fun add(post: Post) {
+        if (post.id == PostRepository.NEW_POST_ID) {
+            data.value = listOf(post.copy(id = ++nextId)) + posts // to the start of list
+//            data.value = posts + post.copy(id = ++nextId) //to the end
+        }
     }
 
-    private fun insert(post: Post) {
-        data.value = posts + post.copy(id = ++nextId) //to the end
-//        data.value = listOf(post.copy(id = ++nextId)) + posts // to the start of list
-    }
-
-    private fun update(post: Post) {
+    override fun edit(post: Post) {
         data.value = posts.map {
             if (it.id == post.id) post else it
         }
     }
 
     companion object {
-        const val GENERATED_POST_AMOUNT = 10
+        const val GENERATED_POST_AMOUNT = 2
     }
 }
