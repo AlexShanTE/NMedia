@@ -2,37 +2,48 @@ package ru.netology.nmedia.data.impl
 
 import androidx.lifecycle.MutableLiveData
 import ru.netology.nmedia.R
+import ru.netology.nmedia.TextGenerator
 import ru.netology.nmedia.data.PostRepository
 import ru.netology.nmedia.data.dto.Post
+import kotlin.random.Random
 
 class InMemoryPostRepository : PostRepository {
 
     override val data = MutableLiveData(
-        Post(
-            id = 1,
-            author = "Alex",
-            content = "Hello, this is blablabla test text for my own post",
-            published = "25.04.2022",
-            likes = 1099,
-            shares = 995,
-            views = 100,
-            likedByMe = false
-        )
+        List(100) {index ->
+            Post(
+                id = index +1L,
+                author = "Alex",
+                content = TextGenerator.generateRandomText(200),
+                published = "25.04.2022",
+                likes = Random.nextLong(0, 1200),
+                shares = Random.nextLong(0, 1000),
+                views = Random.nextLong(0, 100),
+                likedByMe = false
+            )
+        }
     )
 
-    override fun like() {
-        val currentPost = checkNotNull(data.value)
-        val likedPost =
-            if (currentPost.likedByMe) {
-                currentPost.copy(likes = currentPost.likes - 1, likedByMe = !currentPost.likedByMe)
-            } else {
-                currentPost.copy(likes = currentPost.likes + 1, likedByMe = !currentPost.likedByMe)
-            }
-        data.value = likedPost
+    private val posts
+    get() = checkNotNull(data.value) {
+        "data should be not null"
     }
 
-    override fun share() {
-        val currentPost = checkNotNull(data.value)
-        data.value = currentPost.copy(shares = currentPost.shares + 1)
+    override fun like(postId:Long) {
+        data.value = posts.map{
+            if (it.id == postId) {
+                when (it.likedByMe) {
+                    true -> it.copy(likes = it.likes - 1, likedByMe = !it.likedByMe)
+                    false -> it.copy(likes = it.likes + 1, likedByMe = !it.likedByMe)
+                }
+            } else it
+        }
+    }
+
+    override fun share(postId:Long) {
+        data.value = posts.map {
+            if (it.id == postId) it.copy(shares = it.shares + 1)
+            else it
+        }
     }
 }
