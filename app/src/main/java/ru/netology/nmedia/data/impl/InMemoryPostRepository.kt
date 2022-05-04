@@ -23,7 +23,8 @@ class InMemoryPostRepository : PostRepository {
                 likes = Random.nextLong(0, 1200),
                 shares = Random.nextLong(0, 1000),
                 views = Random.nextLong(0, 100),
-                likedByMe = false
+                likedByMe = false,
+                videoContent = null
             )
         }
     )

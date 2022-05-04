@@ -20,6 +20,7 @@ class PostViewModel : ViewModel(), PostInteractionListener {
     val sharePostContent = SingleLiveEvent<String>()
     val navigateToPostContentScreenToEditPost = SingleLiveEvent<String>()
     val navigateToPostContentScreenToAddNewPost = SingleLiveEvent<String>()
+    val videoPlay = SingleLiveEvent<String?>()
 
     private val targetPost = MutableLiveData<Post?>(null)
 
@@ -30,7 +31,8 @@ class PostViewModel : ViewModel(), PostInteractionListener {
                 id = PostRepository.NEW_POST_ID,
                 author = faker.name.name(),
                 content = content,
-                published = "Today"
+                published = "Today",
+                videoContent = "https://www.youtube.com/watch?v=sZRnrOG2jMs&t=10s&ab_channel=RomanAndrushchenko"
             )
             repository.add(newPost)
             targetPost.value = null
@@ -64,6 +66,11 @@ class PostViewModel : ViewModel(), PostInteractionListener {
     override fun onEditClicked(post: Post) {
         targetPost.value = post
         navigateToPostContentScreenToEditPost.value = post.content
+    }
+
+    override fun onPlayVideoClicked(post: Post) {
+        if (post.videoContent == null) return
+        else videoPlay.value = post.videoContent
     }
 
     // endregion PostInteractionListener

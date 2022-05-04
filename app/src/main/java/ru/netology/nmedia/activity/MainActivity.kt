@@ -3,6 +3,8 @@ package ru.netology.nmedia.activity
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContract
@@ -56,6 +58,16 @@ class MainActivity : AppCompatActivity() {
         viewModel.navigateToPostContentScreenToAddNewPost.observe(this) {
             postContentActivityLauncher.launch()
         }
+
+        viewModel.videoPlay.observe(this) { videoLink ->
+            val intent = Intent().apply {
+                action = Intent.ACTION_VIEW
+                putExtra(Intent.EXTRA_TEXT, Uri.parse(videoLink))
+            }
+            startActivity(intent)
+        }
+
+
 
         viewModel.sharePostContent.observe(this) { postContent ->
             val intent = Intent().apply {
