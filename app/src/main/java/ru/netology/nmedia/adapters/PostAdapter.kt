@@ -1,5 +1,7 @@
 package ru.netology.nmedia.adapters
 
+import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import ru.netology.nmedia.R
 import ru.netology.nmedia.data.dto.Post
 import ru.netology.nmedia.databinding.PostBinding
@@ -76,8 +79,11 @@ internal class PostAdapter(
                     postVideoInfo.visibility = View.VISIBLE
                     videoDuration.text = "10:00"
                     videoTitle.text = "This should be VIDEO TITLE"
+                    val videoId = getIdFromYouTubeVideoLink(post.videoContent)
                     Glide.with(videoPreview)
-                        .load(post.videoContent)
+                        .asDrawable()
+                        .centerCrop()
+                        .load("https://img.youtube.com/vi/$videoId/mqdefault.jpg")
                         .error(R.mipmap.ic_launcher)
                         .into(videoPreview)
                 }
@@ -97,6 +103,15 @@ private fun numberFormatter(number: Long): String? {
     val decimalFormat = DecimalFormat("#.#")
     decimalFormat.roundingMode = RoundingMode.DOWN
     return java.lang.String.format("%s%s", decimalFormat.format(value), arr[index])
+}
+
+private fun getIdFromYouTubeVideoLink(link : String) : String{
+    Log.d("TAG",link)
+    val res = link.substringAfter("https://www.youtube.com/watch?v=").substringBefore("&")
+    Log.d("TAG",res)
+
+
+    return res
 }
 
 private object DiffCallBack : DiffUtil.ItemCallback<Post>() {

@@ -31,7 +31,7 @@ class PostViewModel : ViewModel(), PostInteractionListener {
                 author = faker.name.name(),
                 content = content,
                 published = "Today",
-                videoContent = "https://www.youtube.com/watch?v=WhWc3b3KhnY"
+                videoContent = "https://www.youtube.com/watch?v=QmPdnxWMVZk&ab_channel=SmileFun"
             )
             repository.add(newPost)
             targetPost.value = null
