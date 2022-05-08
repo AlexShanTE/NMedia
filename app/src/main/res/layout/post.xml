@@ -190,12 +190,4 @@
         app:layout_constraintTop_toTopOf="@+id/likes_button"
         tools:text="1000" />
 
-<!--    <include-->
-<!--        android:id="@+id/post_video"-->
-<!--        layout="@layout/post_video_content"-->
-<!--        app:layout_constraintTop_toTopOf="@id/header_barrier"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        />-->
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

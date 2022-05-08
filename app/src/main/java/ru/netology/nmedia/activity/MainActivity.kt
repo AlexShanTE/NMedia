@@ -6,14 +6,9 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.launch
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.PackageManagerCompat
-import com.bumptech.glide.Glide
-import com.squareup.picasso.Picasso
 import ru.netology.nmedia.R
 import ru.netology.nmedia.adapters.PostAdapter
 import ru.netology.nmedia.databinding.ActivityMainBinding

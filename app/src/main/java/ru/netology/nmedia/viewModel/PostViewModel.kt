@@ -1,6 +1,5 @@
 package ru.netology.nmedia.viewModel
 
-import com.squareup.picasso.Picasso
 import ru.netology.nmedia.util.SingleLiveEvent
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
