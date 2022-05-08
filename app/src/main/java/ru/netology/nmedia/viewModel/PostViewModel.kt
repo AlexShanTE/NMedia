@@ -1,6 +1,6 @@
 package ru.netology.nmedia.viewModel
 
-import android.util.Log
+import com.squareup.picasso.Picasso
 import ru.netology.nmedia.util.SingleLiveEvent
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -32,7 +32,7 @@ class PostViewModel : ViewModel(), PostInteractionListener {
                 author = faker.name.name(),
                 content = content,
                 published = "Today",
-                videoContent = "https://www.youtube.com/watch?v=sZRnrOG2jMs&t=10s&ab_channel=RomanAndrushchenko"
+                videoContent = "https://www.youtube.com/watch?v=WhWc3b3KhnY"
             )
             repository.add(newPost)
             targetPost.value = null

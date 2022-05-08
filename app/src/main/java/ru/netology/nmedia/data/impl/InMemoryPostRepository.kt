@@ -2,7 +2,6 @@ package ru.netology.nmedia.data.impl
 
 import androidx.lifecycle.MutableLiveData
 import io.github.serpro69.kfaker.Faker
-import ru.netology.nmedia.util.TextGenerator
 import ru.netology.nmedia.data.PostRepository
 import ru.netology.nmedia.data.dto.Post
 import kotlin.random.Random
@@ -18,7 +17,7 @@ class InMemoryPostRepository : PostRepository {
             Post(
                 id = index + 1L,
                 author = faker.name.name(),
-                content = TextGenerator.generateRandomText(250),
+                content = faker.harryPotter.quotes(),
                 published = "28.04.2022",
                 likes = Random.nextLong(0, 1200),
                 shares = Random.nextLong(0, 1000),

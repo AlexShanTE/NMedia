@@ -11,6 +11,9 @@ import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.launch
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.PackageManagerCompat
+import com.bumptech.glide.Glide
+import com.squareup.picasso.Picasso
 import ru.netology.nmedia.R
 import ru.netology.nmedia.adapters.PostAdapter
 import ru.netology.nmedia.databinding.ActivityMainBinding
@@ -60,14 +63,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewModel.videoPlay.observe(this) { videoLink ->
-            val intent = Intent().apply {
-                action = Intent.ACTION_VIEW
-                putExtra(Intent.EXTRA_TEXT, Uri.parse(videoLink))
-            }
-            startActivity(intent)
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(videoLink))
+            val chooser = Intent.createChooser(intent, getString(R.string.open_with))
+            startActivity(chooser)
         }
-
-
 
         viewModel.sharePostContent.observe(this) { postContent ->
             val intent = Intent().apply {

@@ -8,11 +8,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.squareup.picasso.Picasso
 import ru.netology.nmedia.R
+import ru.netology.nmedia.activity.MainActivity
 import ru.netology.nmedia.data.dto.Post
 import ru.netology.nmedia.databinding.PostBinding
 import java.math.RoundingMode
 import java.text.DecimalFormat
+
 
 internal class PostAdapter(
     private val interactionListener: PostInteractionListener
@@ -75,6 +78,10 @@ internal class PostAdapter(
                     postVideoInfo.visibility = View.VISIBLE
                     videoDuration.setText("10:00")
                     videoTitle.setText("This should be VIDEO TITLE")
+                    Picasso.get()
+                        .load(post.videoContent)
+                        .error(R.mipmap.ic_launcher)
+                        .into(videoPreview)
                 }
             }
         }

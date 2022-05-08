@@ -8,4 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name= "black_alfa_50">#80000000</color>
+
+    <color name="ic_avatar_foreground_background">#FFFFFF</color>
+    <color name="ic_launcher_background">#FFFFFF</color>
+
 </resources>

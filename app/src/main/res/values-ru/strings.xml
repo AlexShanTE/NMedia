@@ -11,4 +11,5 @@
     <string name="add_post">Добавить сообщение</string>
     <string name="play">Воспроизвести</string>
     <string name="video_preview">video_preview</string>
+    <string name="open_with">Открыть с помощью</string>
 </resources>

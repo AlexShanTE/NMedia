@@ -62,6 +62,7 @@
         app:constraint_referenced_ids="avatar_image_view,author_name,date,post_options_button"
         />
 
+
     <androidx.constraintlayout.widget.Group
         android:id="@+id/post_video_info"
         android:visibility="gone"
@@ -92,13 +93,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/header_barrier"
-        android:contentDescription="@string/video_preview"
          />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/play_button"
-        android:layout_width="@dimen/icon_button_min_size"
-        android:layout_height="@dimen/icon_button_min_size"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:src="@drawable/ic_play_24"
         android:background="@android:color/transparent"
         app:layout_constraintTop_toTopOf="@id/video_preview"
