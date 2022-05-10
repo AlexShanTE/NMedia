@@ -12,4 +12,5 @@ interface PostInteractionListener {
 
     fun onEditClicked(post:Post)
 
+
 }

@@ -3,13 +3,11 @@ package ru.netology.nmedia.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.PopupMenu
-import androidx.annotation.DrawableRes
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.netology.nmedia.R
 import ru.netology.nmedia.data.dto.Post
-import ru.netology.nmedia.databinding.ActivityMainBinding
 import ru.netology.nmedia.databinding.PostBinding
 import java.math.RoundingMode
 import java.text.DecimalFormat
@@ -47,7 +45,6 @@ internal class PostAdapter(
                         }
                         R.id.edit -> {
                             listener.onEditClicked(post)
-                            val a = binding.root
                             true
                         }
                         else -> false
@@ -67,10 +64,10 @@ internal class PostAdapter(
                 authorName.text = post.author
                 date.text = post.published
                 postTextContent.text = post.content
-                numberOfLikes.text = numberFormatter(post.likes)
-                numberOfShare.text = numberFormatter(post.shares)
-                numberOfViews.text = numberFormatter(post.views)
-                likesButton.setImageResource(getLikeIconResId(post.likedByMe))
+                likesButton.text = numberFormatter(post.likes)
+                likesButton.isChecked = post.likedByMe
+                shareButton.text = numberFormatter(post.shares)
+                views.text = numberFormatter(post.views)
                 postOptionsButton.setOnClickListener { popupMenu.show() }
             }
         }
@@ -87,12 +84,6 @@ internal class PostAdapter(
             decimalFormat.roundingMode = RoundingMode.DOWN
             return java.lang.String.format("%s%s", decimalFormat.format(value), arr[index])
         }
-
-        @DrawableRes
-        private fun getLikeIconResId(likedByMe: Boolean): Int {
-            return if (likedByMe) R.drawable.ic_liked_24 else R.drawable.ic_like_24
-        }
-
     }
 
     private object DiffCallBack : DiffUtil.ItemCallback<Post>() {
