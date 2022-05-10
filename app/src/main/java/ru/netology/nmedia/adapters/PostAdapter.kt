@@ -1,11 +1,16 @@
 package ru.netology.nmedia.adapters
 
+import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import ru.netology.nmedia.R
 import ru.netology.nmedia.data.dto.Post
 import ru.netology.nmedia.databinding.PostBinding
@@ -20,7 +25,7 @@ internal class PostAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = PostBinding.inflate(inflater, parent, false)
-        return ViewHolder(binding ,interactionListener)
+        return ViewHolder(binding, interactionListener)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -56,6 +61,7 @@ internal class PostAdapter(
         init {
             binding.likesButton.setOnClickListener { listener.onLikeCLicked(post) }
             binding.shareButton.setOnClickListener { listener.onShareClicked(post) }
+            binding.playButton.setOnClickListener { listener.onPlayVideoClicked(post) }
         }
 
         fun bind(post: Post) {
@@ -69,33 +75,55 @@ internal class PostAdapter(
                 shareButton.text = numberFormatter(post.shares)
                 views.text = numberFormatter(post.views)
                 postOptionsButton.setOnClickListener { popupMenu.show() }
+                if (post.videoContent !== null) {
+                    postVideoInfo.visibility = View.VISIBLE
+                    videoDuration.text = "10:00"
+                    videoTitle.text = "This should be VIDEO TITLE"
+                    val videoId = getIdFromYouTubeVideoLink(post.videoContent)
+                    Glide.with(videoPreview)
+                        .asDrawable()
+                        .centerCrop()
+                        .load("https://img.youtube.com/vi/$videoId/mqdefault.jpg")
+                        .error(R.mipmap.ic_launcher)
+                        .into(videoPreview)
+                }
             }
-        }
-
-        private fun numberFormatter(number: Long): String? {
-            var value = number.toDouble()
-            val arr = arrayOf("", "K", "M", "B")
-            var index = 0
-            while (value / 1000 >= 1) {
-                value /= 1000
-                index++
-            }
-            val decimalFormat = DecimalFormat("#.#")
-            decimalFormat.roundingMode = RoundingMode.DOWN
-            return java.lang.String.format("%s%s", decimalFormat.format(value), arr[index])
         }
     }
+}
 
-    private object DiffCallBack : DiffUtil.ItemCallback<Post>() {
+private fun numberFormatter(number: Long): String? {
+    var value = number.toDouble()
+    val arr = arrayOf("", "K", "M", "B")
+    var index = 0
+    while (value / 1000 >= 1) {
+        value /= 1000
+        index++
+    }
+    val decimalFormat = DecimalFormat("#.#")
+    decimalFormat.roundingMode = RoundingMode.DOWN
+    return java.lang.String.format("%s%s", decimalFormat.format(value), arr[index])
+}
 
-        override fun areItemsTheSame(oldItem: Post, newItem: Post): Boolean {
-            return oldItem.id == newItem.id
-        }
+private fun getIdFromYouTubeVideoLink(link : String) : String{
+    Log.d("TAG",link)
+    val res = link.substringAfter("https://www.youtube.com/watch?v=").substringBefore("&")
+    Log.d("TAG",res)
 
-        override fun areContentsTheSame(oldItem: Post, newItem: Post): Boolean {
-            return oldItem == newItem
-        }
 
+    return res
+}
+
+private object DiffCallBack : DiffUtil.ItemCallback<Post>() {
+
+    override fun areItemsTheSame(oldItem: Post, newItem: Post): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(oldItem: Post, newItem: Post): Boolean {
+        return oldItem == newItem
     }
 
 }
+
+

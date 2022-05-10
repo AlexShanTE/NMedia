@@ -13,7 +13,7 @@
         android:src="@mipmap/ic_avatar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/author_name"
@@ -62,24 +62,85 @@
         app:constraint_referenced_ids="avatar_image_view,author_name,date,post_options_button"
         />
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/testimage"
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/post_video_info"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        tools:src="@tools:sample/avatars"
-        app:layout_constraintTop_toTopOf="@id/header_barrier"
+        app:constraint_referenced_ids="video_preview,play_button,video_duration,video_title"
         />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/video_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:background="@color/black_alfa_50"
+        android:singleLine="true"
+        app:layout_constraintEnd_toEndOf="@id/video_preview"
+        app:layout_constraintBottom_toBottomOf="@id/video_preview"
+        tools:text="12:00"
+        />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/video_preview"
+        android:layout_width="match_parent"
+        android:layout_height="128dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header_barrier"
+         />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/play_button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/ic_play_24"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toTopOf="@id/video_preview"
+        app:layout_constraintBottom_toBottomOf="@id/video_preview"
+        app:layout_constraintStart_toStartOf="@id/video_preview"
+        app:layout_constraintEnd_toEndOf="@id/video_preview"
+        android:contentDescription="@string/play"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/video_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textStyle="bold"
+        tools:text="This is name of video content"
+        app:layout_constraintTop_toBottomOf="@id/video_preview"
+        app:layout_constraintStart_toStartOf="@id/video_preview"
+        />
+
+
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/video_content_barrier"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="header_barrier,video_preview,video_title,play_button,video_duration"
+        />
+
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/post_text_content"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingTop="4dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@id/content_barrier"
         app:layout_constraintEnd_toEndOf="@id/post_options_button"
         app:layout_constraintStart_toStartOf="@id/avatar_image_view"
-        app:layout_constraintTop_toBottomOf="@+id/testimage"
+        app:layout_constraintTop_toBottomOf="@+id/video_content_barrier"
         tools:text="Hello" />
 
     <androidx.constraintlayout.widget.Barrier
@@ -100,7 +161,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/content_barrier"
-        tools:text="1000" />
+        tools:text="1100" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/share_button"
@@ -113,7 +174,8 @@
         app:layout_constraintBottom_toBottomOf="@id/likes_button"
         app:layout_constraintStart_toEndOf="@id/likes_button"
         app:layout_constraintTop_toTopOf="@+id/likes_button"
-        tools:text="1000" />
+        tools:text="1000"
+        />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/views"
@@ -127,13 +189,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/likes_button"
         tools:text="1000" />
-
-<!--    <include-->
-<!--        android:id="@+id/post_video"-->
-<!--        layout="@layout/post_video_content"-->
-<!--        app:layout_constraintTop_toTopOf="@id/header_barrier"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        />-->
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

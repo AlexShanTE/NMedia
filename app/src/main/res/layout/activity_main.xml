@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -29,95 +30,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />
-
-<!--    <androidx.constraintlayout.widget.Barrier-->
-<!--        android:id="@+id/topBarrier"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:barrierDirection="top"-->
-<!--        app:constraint_referenced_ids="editMessageText,messageToEditText,cancel_edit_text_button,editTextIcon" />-->
-
-<!--    <androidx.appcompat.widget.AppCompatImageView-->
-<!--        android:id="@+id/editTextIcon"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:padding="16dp"-->
-<!--        android:src="@drawable/ic_edit_text_icon_24"-->
-<!--        app:layout_constraintBottom_toTopOf="@id/middleBarrier"-->
-<!--        app:layout_constraintStart_toStartOf="parent" />-->
-
-<!--    <androidx.appcompat.widget.AppCompatTextView-->
-<!--        android:id="@+id/editMessageText"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:ellipsize="end"-->
-<!--        android:singleLine="true"-->
-<!--        android:text="@string/edit_message"-->
-<!--        app:layout_constraintBottom_toTopOf="@id/messageToEditText"-->
-<!--        app:layout_constraintEnd_toStartOf="@id/cancel_edit_text_button"-->
-<!--        app:layout_constraintStart_toEndOf="@id/editTextIcon"-->
-<!--        app:layout_constraintTop_toTopOf="@id/topBarrier"-->
-<!--        tools:text="@string/edit_message" />-->
-
-<!--    <androidx.appcompat.widget.AppCompatTextView-->
-<!--        android:id="@+id/messageToEditText"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:ellipsize="end"-->
-<!--        android:singleLine="true"-->
-<!--        app:layout_constraintBottom_toBottomOf="@id/middleBarrier"-->
-<!--        app:layout_constraintEnd_toStartOf="@id/cancel_edit_text_button"-->
-<!--        app:layout_constraintStart_toEndOf="@id/editTextIcon"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/editMessageText"-->
-<!--        tools:text="@string/message" />-->
-
-<!--    <androidx.appcompat.widget.AppCompatImageButton-->
-<!--        android:id="@+id/cancel_edit_text_button"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:background="@android:color/transparent"-->
-<!--        android:padding="16dp"-->
-<!--        android:src="@drawable/ic_cancel_24"-->
-<!--        app:layout_constraintBottom_toBottomOf="@id/middleBarrier"-->
-<!--        app:layout_constraintEnd_toEndOf="parent" />-->
-
-<!--    <androidx.constraintlayout.widget.Group-->
-<!--        android:id="@+id/editTextGroup"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:visibility="gone"-->
-<!--        app:constraint_referenced_ids="editMessageText,messageToEditText,cancel_edit_text_button,editTextIcon" />-->
-
-<!--    <androidx.constraintlayout.widget.Barrier-->
-<!--        android:id="@+id/middleBarrier"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:barrierDirection="top"-->
-<!--        app:constraint_referenced_ids="contentEditText,saveButton" />-->
-
-<!--    <androidx.appcompat.widget.AppCompatEditText-->
-<!--        android:id="@+id/contentEditText"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:background="@android:color/transparent"-->
-<!--        android:hint="@string/message"-->
-<!--        android:importantForAutofill="no"-->
-<!--        android:inputType="textMultiLine"-->
-<!--        android:padding="16dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toStartOf="@id/saveButton"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="@id/middleBarrier" />-->
-
-<!--    <androidx.appcompat.widget.AppCompatImageButton-->
-<!--        android:id="@+id/saveButton"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:background="@android:color/transparent"-->
-<!--        android:padding="16dp"-->
-<!--        android:src="@drawable/ic_baseline_refresh_24"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toEndOf="@id/contentEditText" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

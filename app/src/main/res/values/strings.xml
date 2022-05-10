@@ -10,4 +10,7 @@
     <string name="description_post_save">Save</string>
     <string name="add_post">Add post</string>
     <string name="play">Play</string>
+    <string name="video_preview">video_preview</string>
+    <string name="open_with">Open With</string>
+
 </resources>
