@@ -1,5 +1,7 @@
 package ru.netology.nmedia.viewModel
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import ru.netology.nmedia.util.SingleLiveEvent
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,11 +9,15 @@ import io.github.serpro69.kfaker.Faker
 import ru.netology.nmedia.adapters.PostInteractionListener
 import ru.netology.nmedia.data.PostRepository
 import ru.netology.nmedia.data.dto.Post
+import ru.netology.nmedia.data.impl.FilePostRepository
 import ru.netology.nmedia.data.impl.InMemoryPostRepository
+import ru.netology.nmedia.data.impl.SharedPrefsPostRepository
 
-class PostViewModel : ViewModel(), PostInteractionListener {
+class PostViewModel(
+    application: Application
+) : AndroidViewModel(application), PostInteractionListener {
 
-    private val repository: PostRepository = InMemoryPostRepository()
+    private val repository: PostRepository = FilePostRepository(application)
     private val faker = Faker() // name generator
 
     val data by repository::data

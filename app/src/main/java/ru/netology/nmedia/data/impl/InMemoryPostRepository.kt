@@ -52,8 +52,8 @@ class InMemoryPostRepository : PostRepository {
     }
 
     override fun delete(postId: Long) {
-        data.value = posts.filter {
-            it.id !== postId
+        data.value = posts.filterNot {
+            it.id == postId
         }
     }
 
