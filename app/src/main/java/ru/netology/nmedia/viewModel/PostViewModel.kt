@@ -37,7 +37,7 @@ class PostViewModel(
                 author = faker.name.name(),
                 content = content,
                 published = "Today",
-                videoContent = "https://www.youtube.com/watch?v=QmPdnxWMVZk&ab_channel=SmileFun"
+                videoContent = getRandomVideoContent()
             )
             repository.add(newPost)
             targetPost.value = null
@@ -55,6 +55,7 @@ class PostViewModel(
 
     fun onAddClicked() {
         navigateToPostContentScreenToAddNewPost.call()
+
     }
 
     // region PostInteractionListener
@@ -76,6 +77,17 @@ class PostViewModel(
     override fun onPlayVideoClicked(post: Post) {
         if (post.videoContent == null) return
         else videoPlay.value = post.videoContent
+    }
+
+    fun getRandomVideoContent(): String {
+        val videoContentList = listOf<String>(
+            "https://www.youtube.com/watch?v=QmPdnxWMVZk&t=2s&ab_channel=SmileFun",
+            "https://www.youtube.com/watch?v=acAVHUxD1j0&ab_channel=FunnyAnimals",
+            "https://www.youtube.com/watch?v=-452p_9ESbM&ab_channel=FANVIDOS-%D0%9C%D0%B8%D0%BB%D1%8B%D0%B5%D0%BA%D0%BE%D1%82%D0%B8%D0%BA%D0%B8",
+            "https://www.youtube.com/watch?v=dhDi0CJN8FE&ab_channel=LifeforFun",
+            "https://www.youtube.com/watch?v=3DrU3pFXSsY&ab_channel=SmileFun"
+        )
+        return videoContentList.random()
     }
 
     // endregion PostInteractionListener

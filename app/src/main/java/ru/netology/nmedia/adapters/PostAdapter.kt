@@ -1,7 +1,5 @@
 package ru.netology.nmedia.adapters
 
-import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +8,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import ru.netology.nmedia.R
 import ru.netology.nmedia.data.dto.Post
 import ru.netology.nmedia.databinding.PostBinding
@@ -105,13 +102,8 @@ private fun numberFormatter(number: Long): String? {
     return java.lang.String.format("%s%s", decimalFormat.format(value), arr[index])
 }
 
-private fun getIdFromYouTubeVideoLink(link : String) : String{
-    Log.d("TAG",link)
-    val res = link.substringAfter("https://www.youtube.com/watch?v=").substringBefore("&")
-    Log.d("TAG",res)
-
-
-    return res
+private fun getIdFromYouTubeVideoLink(link: String): String {
+    return link.substringAfter("https://www.youtube.com/watch?v=").substringBefore("&")
 }
 
 private object DiffCallBack : DiffUtil.ItemCallback<Post>() {

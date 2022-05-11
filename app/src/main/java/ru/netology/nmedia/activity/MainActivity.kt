@@ -1,14 +1,16 @@
 package ru.netology.nmedia.activity
 
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import androidx.activity.result.launch
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.size
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import ru.netology.nmedia.R
 import ru.netology.nmedia.adapters.PostAdapter
 import ru.netology.nmedia.databinding.ActivityMainBinding
@@ -31,6 +33,14 @@ class MainActivity : AppCompatActivity() {
             registerForActivityResult<Unit, String?>(PostContentActivity.ResultContract) { postContent ->
                 postContent ?: return@registerForActivityResult
                 viewModel.addNewPost(postContent)
+                // Scroll to the top of the list
+                GlobalScope.launch(Dispatchers.Main) {
+                    delay(200)
+                    val postList = binding.postsRecyclerView
+                    if (postList.size > 1) {
+                        binding.postsRecyclerView.scrollToPosition(0)
+                    }
+                }
             }
 
         val postContentActivityLauncherForEdit =

@@ -2,14 +2,12 @@ package ru.netology.nmedia.data.impl
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
 import androidx.core.content.edit
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import io.github.serpro69.kfaker.Faker
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 import ru.netology.nmedia.data.PostRepository
 import ru.netology.nmedia.data.dto.Post
 import kotlin.properties.Delegates
@@ -97,7 +95,6 @@ class FilePostRepository(
     }
 
     companion object {
-        const val POST_PREFS_KEY = "post prefs key"
         const val NEXT_ID = "next id"
         const val FILE_NAME = "posts.json"
     }
