@@ -3,6 +3,7 @@ package ru.netology.nmedia.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -56,6 +57,9 @@ internal class PostAdapter(
         }
 
         init {
+            itemView.setOnClickListener {
+                listener.onPostItemCLicked(post)
+            }
             binding.likesButton.setOnClickListener { listener.onLikeCLicked(post) }
             binding.shareButton.setOnClickListener { listener.onShareClicked(post) }
             binding.playButton.setOnClickListener { listener.onPlayVideoClicked(post) }
@@ -86,10 +90,11 @@ internal class PostAdapter(
                 }
             }
         }
+
     }
 }
 
-private fun numberFormatter(number: Long): String? {
+fun numberFormatter(number: Long): String? {
     var value = number.toDouble()
     val arr = arrayOf("", "K", "M", "B")
     var index = 0
@@ -102,7 +107,7 @@ private fun numberFormatter(number: Long): String? {
     return java.lang.String.format("%s%s", decimalFormat.format(value), arr[index])
 }
 
-private fun getIdFromYouTubeVideoLink(link: String): String {
+fun getIdFromYouTubeVideoLink(link: String): String {
     return link.substringAfter("https://www.youtube.com/watch?v=").substringBefore("&")
 }
 
