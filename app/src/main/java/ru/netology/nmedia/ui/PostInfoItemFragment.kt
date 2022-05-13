@@ -39,7 +39,8 @@ class PostInfoItemFragment : Fragment() {
 
         //Callback for backPressed
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            findNavController().navigate(R.id.feedFragment)
+            val direction = PostInfoItemFragmentDirections.toFeedFragment()
+            findNavController().navigate(direction)
         }
 
         val binding = PostInfoItemFragmentBinding.inflate(layoutInflater, container, false)
@@ -103,7 +104,8 @@ class PostInfoItemFragment : Fragment() {
                                 }
                                 R.id.edit -> {
                                     viewModel.onEditClicked(post)
-                                    val direction = PostInfoItemFragmentDirections.toPostContentFragment(post.content)
+                                    val direction =
+                                        PostInfoItemFragmentDirections.toPostContentFragment(post.content)
                                     findNavController().navigate(direction)
                                     true
                                 }
@@ -124,7 +126,7 @@ class PostInfoItemFragment : Fragment() {
                     viewModel.onShareClicked(post)
                 }
 
-                postItem.playButton.setOnClickListener{
+                postItem.playButton.setOnClickListener {
                     viewModel.onPlayVideoClicked(post)
                 }
 
