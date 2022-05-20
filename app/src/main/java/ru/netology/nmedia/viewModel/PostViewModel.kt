@@ -1,17 +1,24 @@
 package ru.netology.nmedia.viewModel
 
 import android.app.Application
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import ru.netology.nmedia.util.SingleLiveEvent
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.github.serpro69.kfaker.Faker
+import io.github.serpro69.kfaker.provider.App
 import ru.netology.nmedia.adapters.PostInteractionListener
 import ru.netology.nmedia.data.PostRepository
 import ru.netology.nmedia.data.dto.Post
 import ru.netology.nmedia.data.impl.FilePostRepository
 import ru.netology.nmedia.data.impl.InMemoryPostRepository
 import ru.netology.nmedia.data.impl.SharedPrefsPostRepository
+import ru.netology.nmedia.databinding.FeedFragmentBinding
+import ru.netology.nmedia.ui.AppActivity
+import ru.netology.nmedia.ui.FeedFragment
+import ru.netology.nmedia.ui.FeedFragmentDirections
 
 class PostViewModel(
     application: Application
@@ -23,8 +30,8 @@ class PostViewModel(
     val data by repository::data
 
     val sharePostContent = SingleLiveEvent<String>()
-    val navigateToPostContentScreenToEditPost = SingleLiveEvent<String>()
-    val navigateToPostContentScreenToAddNewPost = SingleLiveEvent<String>()
+    val navigateToPostContentScreen = SingleLiveEvent<String>()
+    val navigateToPostInfoScreen = SingleLiveEvent<Post>()
     val videoPlay = SingleLiveEvent<String?>()
 
     private val targetPost = MutableLiveData<Post?>(null)
@@ -45,6 +52,7 @@ class PostViewModel(
     }
 
     fun editPost(content: String) {
+        Log.d("myTag", content + " " + "content")
         if (content.isBlank()) return
         val post = targetPost.value?.copy(content = content)
         if (post != null) {
@@ -54,8 +62,18 @@ class PostViewModel(
     }
 
     fun onAddClicked() {
-        navigateToPostContentScreenToAddNewPost.call()
+        navigateToPostContentScreen.call()
+    }
 
+    private fun getRandomVideoContent(): String {
+        val videoContentList = listOf<String>(
+            "https://www.youtube.com/watch?v=QmPdnxWMVZk&t=2s&ab_channel=SmileFun",
+            "https://www.youtube.com/watch?v=acAVHUxD1j0&ab_channel=FunnyAnimals",
+            "https://www.youtube.com/watch?v=-452p_9ESbM&ab_channel=FANVIDOS-%D0%9C%D0%B8%D0%BB%D1%8B%D0%B5%D0%BA%D0%BE%D1%82%D0%B8%D0%BA%D0%B8",
+            "https://www.youtube.com/watch?v=dhDi0CJN8FE&ab_channel=LifeforFun",
+            "https://www.youtube.com/watch?v=3DrU3pFXSsY&ab_channel=SmileFun"
+        )
+        return videoContentList.random()
     }
 
     // region PostInteractionListener
@@ -71,7 +89,7 @@ class PostViewModel(
 
     override fun onEditClicked(post: Post) {
         targetPost.value = post
-        navigateToPostContentScreenToEditPost.value = post.content
+        navigateToPostContentScreen.value = post.content
     }
 
     override fun onPlayVideoClicked(post: Post) {
@@ -79,15 +97,13 @@ class PostViewModel(
         else videoPlay.value = post.videoContent
     }
 
-    fun getRandomVideoContent(): String {
-        val videoContentList = listOf<String>(
-            "https://www.youtube.com/watch?v=QmPdnxWMVZk&t=2s&ab_channel=SmileFun",
-            "https://www.youtube.com/watch?v=acAVHUxD1j0&ab_channel=FunnyAnimals",
-            "https://www.youtube.com/watch?v=-452p_9ESbM&ab_channel=FANVIDOS-%D0%9C%D0%B8%D0%BB%D1%8B%D0%B5%D0%BA%D0%BE%D1%82%D0%B8%D0%BA%D0%B8",
-            "https://www.youtube.com/watch?v=dhDi0CJN8FE&ab_channel=LifeforFun",
-            "https://www.youtube.com/watch?v=3DrU3pFXSsY&ab_channel=SmileFun"
-        )
-        return videoContentList.random()
+    override fun onPostItemCLicked(post: Post) {
+        Toast.makeText(
+            getApplication<Application>().applicationContext,
+            "Clicked on post , author of post is ${post.author}",
+            Toast.LENGTH_SHORT
+        ).show()
+        navigateToPostInfoScreen.value = post
     }
 
     // endregion PostInteractionListener

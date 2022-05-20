@@ -29,8 +29,6 @@ class FilePostRepository(
         }
     }
 
-    private val faker = Faker()
-
     private var posts
         get() = checkNotNull(data.value) {
             "data should be not null"
@@ -43,6 +41,7 @@ class FilePostRepository(
         }
 
     override val data: MutableLiveData<List<Post>>
+
 
     init {
         val postsFile = application.filesDir.resolve(FILE_NAME)
