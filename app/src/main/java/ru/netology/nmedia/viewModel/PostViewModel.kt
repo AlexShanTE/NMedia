@@ -1,5 +1,7 @@
 package ru.netology.nmedia.viewModel
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import ru.netology.nmedia.util.SingleLiveEvent
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,11 +9,15 @@ import io.github.serpro69.kfaker.Faker
 import ru.netology.nmedia.adapters.PostInteractionListener
 import ru.netology.nmedia.data.PostRepository
 import ru.netology.nmedia.data.dto.Post
+import ru.netology.nmedia.data.impl.FilePostRepository
 import ru.netology.nmedia.data.impl.InMemoryPostRepository
+import ru.netology.nmedia.data.impl.SharedPrefsPostRepository
 
-class PostViewModel : ViewModel(), PostInteractionListener {
+class PostViewModel(
+    application: Application
+) : AndroidViewModel(application), PostInteractionListener {
 
-    private val repository: PostRepository = InMemoryPostRepository()
+    private val repository: PostRepository = FilePostRepository(application)
     private val faker = Faker() // name generator
 
     val data by repository::data
@@ -31,7 +37,7 @@ class PostViewModel : ViewModel(), PostInteractionListener {
                 author = faker.name.name(),
                 content = content,
                 published = "Today",
-                videoContent = "https://www.youtube.com/watch?v=QmPdnxWMVZk&ab_channel=SmileFun"
+                videoContent = getRandomVideoContent()
             )
             repository.add(newPost)
             targetPost.value = null
@@ -49,6 +55,7 @@ class PostViewModel : ViewModel(), PostInteractionListener {
 
     fun onAddClicked() {
         navigateToPostContentScreenToAddNewPost.call()
+
     }
 
     // region PostInteractionListener
@@ -70,6 +77,17 @@ class PostViewModel : ViewModel(), PostInteractionListener {
     override fun onPlayVideoClicked(post: Post) {
         if (post.videoContent == null) return
         else videoPlay.value = post.videoContent
+    }
+
+    fun getRandomVideoContent(): String {
+        val videoContentList = listOf<String>(
+            "https://www.youtube.com/watch?v=QmPdnxWMVZk&t=2s&ab_channel=SmileFun",
+            "https://www.youtube.com/watch?v=acAVHUxD1j0&ab_channel=FunnyAnimals",
+            "https://www.youtube.com/watch?v=-452p_9ESbM&ab_channel=FANVIDOS-%D0%9C%D0%B8%D0%BB%D1%8B%D0%B5%D0%BA%D0%BE%D1%82%D0%B8%D0%BA%D0%B8",
+            "https://www.youtube.com/watch?v=dhDi0CJN8FE&ab_channel=LifeforFun",
+            "https://www.youtube.com/watch?v=3DrU3pFXSsY&ab_channel=SmileFun"
+        )
+        return videoContentList.random()
     }
 
     // endregion PostInteractionListener
