@@ -6,27 +6,18 @@ import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import ru.netology.nmedia.util.SingleLiveEvent
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import io.github.serpro69.kfaker.Faker
-import io.github.serpro69.kfaker.provider.App
 import ru.netology.nmedia.adapters.PostInteractionListener
 import ru.netology.nmedia.data.PostRepository
 import ru.netology.nmedia.data.dto.Post
-import ru.netology.nmedia.data.impl.FilePostRepository
-import ru.netology.nmedia.data.impl.InMemoryPostRepository
-import ru.netology.nmedia.data.impl.SQLiteRepository
-import ru.netology.nmedia.data.impl.SharedPrefsPostRepository
-import ru.netology.nmedia.databinding.FeedFragmentBinding
+import ru.netology.nmedia.data.impl.RoomRepository
 import ru.netology.nmedia.db.AppDb
-import ru.netology.nmedia.ui.AppActivity
-import ru.netology.nmedia.ui.FeedFragment
-import ru.netology.nmedia.ui.FeedFragmentDirections
 
 class PostViewModel(
     application: Application
 ) : AndroidViewModel(application), PostInteractionListener {
 
-    private val repository: PostRepository = SQLiteRepository(
+    private val repository: PostRepository = RoomRepository(
         dao = AppDb.getInstance(context = application).postDao
     )
 
@@ -39,11 +30,11 @@ class PostViewModel(
     val navigateToPostInfoScreen = SingleLiveEvent<Post>()
     val videoPlay = SingleLiveEvent<String?>()
 
-     val targetPost = MutableLiveData<Post?>(null)
+    val targetPost = MutableLiveData<Post?>(null)
 
     fun addNewPost(content: String) {
         if (content.isBlank()) return
-        Log.d("TAG",(targetPost.value == null).toString())
+        Log.d("TAG", (targetPost.value == null).toString())
         if (targetPost.value == null) {
             val newPost = Post(
                 id = PostRepository.NEW_POST_ID,
@@ -81,7 +72,7 @@ class PostViewModel(
         return videoContentList.random()
     }
 
-     fun clearTargetPostValue(){
+    fun clearTargetPostValue() {
         targetPost.value = null
     }
 

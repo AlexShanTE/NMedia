@@ -2,9 +2,16 @@ package ru.netology.nmedia.db
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
 
-class AppDb private constructor(db: SQLiteDatabase) {
-    val postDao: PostDao = PostDaoImpl(db)
+@Database(
+    entities = [PostEntity::class],
+    version = 1
+)
+abstract class AppDb : RoomDatabase() {
+    abstract val postDao: PostDao
 
     companion object {
         @Volatile
@@ -12,15 +19,14 @@ class AppDb private constructor(db: SQLiteDatabase) {
 
         fun getInstance(context: Context): AppDb {
             return instance ?: synchronized(this) {
-                instance ?: AppDb(
-                    buildDataBase(context, arrayOf(PostsTable.DDL))
-                ).also {
-                    instance = it
-                }
+                instance ?: buildDataBase(context).also { instance = it }
             }
         }
 
-        private fun buildDataBase(context: Context, DDLs: Array<String>) =
-            DBHelper(context, 1, "app.db", DDLs).writableDatabase
+        private fun buildDataBase(context: Context) =
+            Room.databaseBuilder(
+                context, AppDb::class.java, "app.db"
+            ).allowMainThreadQueries()
+                .build()
     }
 }
