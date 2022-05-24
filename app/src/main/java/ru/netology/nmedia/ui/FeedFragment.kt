@@ -24,6 +24,11 @@ open class FeedFragment : Fragment() {
 
         setFragmentResultListener(requestKey = PostContentFragment.REQUEST_KEY) { requestKey, bundle ->
             if (requestKey !== PostContentFragment.REQUEST_KEY) return@setFragmentResultListener
+            /* next 2 lines is crutch fix of a bug when a post is not created during a chain of events
+            * edit -> backPressed -> addPost
+            */
+            val clearTargetPost = bundle.getString(PostContentFragment.CLEAR_TARGET_POST_COMMAND)
+            if (clearTargetPost !== null) viewModel.targetPost.value = null
             val newPostContent = bundle.getString(PostContentFragment.RESULT_KEY_FOR_ADD_POST)
             val editPostContent = bundle.getString(PostContentFragment.RESULT_KEY_FOR_EDIT_POST)
             when {
@@ -73,7 +78,6 @@ open class FeedFragment : Fragment() {
         binding.postsRecyclerView.adapter = adapter
 
         viewModel.data.observe(viewLifecycleOwner) { posts ->
-            adapter.notifyDataSetChanged()
             adapter.submitList(posts)
         }
 
