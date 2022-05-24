@@ -42,7 +42,6 @@ class FilePostRepository(
 
     override val data: MutableLiveData<List<Post>>
 
-
     init {
         val postsFile = application.filesDir.resolve(FILE_NAME)
         val posts: List<Post> = if (postsFile.exists()) {
@@ -54,7 +53,6 @@ class FilePostRepository(
         } else emptyList()
         data = MutableLiveData(posts)
     }
-
 
     override fun like(postId: Long) {
         posts = posts.map {
