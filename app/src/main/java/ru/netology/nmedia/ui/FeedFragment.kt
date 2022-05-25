@@ -3,11 +3,11 @@ package ru.netology.nmedia.ui
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.*
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import ru.netology.nmedia.R
 import ru.netology.nmedia.adapters.PostAdapter
@@ -24,17 +24,12 @@ open class FeedFragment : Fragment() {
 
         setFragmentResultListener(requestKey = PostContentFragment.REQUEST_KEY) { requestKey, bundle ->
             if (requestKey !== PostContentFragment.REQUEST_KEY) return@setFragmentResultListener
-            /* next 2 lines is crutch fix of a bug when a post is not created during a chain of events
-            * edit -> backPressed -> addPost
-            */
-            val clearTargetPost = bundle.getString(PostContentFragment.CLEAR_TARGET_POST_COMMAND)
-            if (clearTargetPost !== null) viewModel.targetPost.value = null
             val newPostContent = bundle.getString(PostContentFragment.RESULT_KEY_FOR_ADD_POST)
             val editPostContent = bundle.getString(PostContentFragment.RESULT_KEY_FOR_EDIT_POST)
             when {
                 newPostContent !== null -> viewModel.addNewPost(newPostContent)
                 editPostContent !== null -> viewModel.editPost(editPostContent)
-                else -> return@setFragmentResultListener
+                else -> viewModel.targetPost.value = null
             }
         }
 
