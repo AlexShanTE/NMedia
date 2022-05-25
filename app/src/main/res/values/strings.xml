@@ -13,4 +13,15 @@
     <string name="video_preview">video_preview</string>
     <string name="open_with">Open With</string>
 
+    <!--Service-->
+
+    <!--Like notification-->
+    <string name="notification_user_liked">User %1$s liked %2$s\'s post</string>
+    <string name="channel_remote_name">Server notifications</string>
+    <string name="channel_remote_description">Notifications from remote server</string>
+    <!--New post notification-->
+    <string name="notification_user_created_post">User %1$s created a post:</string>
+
+
+
 </resources>
