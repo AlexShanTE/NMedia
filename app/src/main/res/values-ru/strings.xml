@@ -12,4 +12,12 @@
     <string name="play">Воспроизвести</string>
     <string name="video_preview">video_preview</string>
     <string name="open_with">Открыть с помощью</string>
+
+    <!--Service-->
+    <string name="notification_user_liked">%1$s поставил лайк посту %2$s </string>
+    <string name="channel_remote_name">Уведомления с сервера</string>
+    <string name="channel_remote_description">Уведомления с удаленного сервера</string>
+    <!--New post notification-->
+    <string name="notification_user_created_post">Позьзователь %1$s создал пост:</string>
+
 </resources>
